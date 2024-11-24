@@ -1,0 +1,2419 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An economic planning package that uses linear programming.">
+      
+      
+      
+      
+        <link rel="prev" href="../economy/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.45">
+    
+    
+      
+        <title>optimize - OptimizePlan</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cybersyn.optimize" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="OptimizePlan" class="md-header__button md-logo" aria-label="OptimizePlan" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OptimizePlan
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              optimize
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="white"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pablovegan/Economic-Planning" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pablovegan/Economic-Planning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../examples/spain/" class="md-tabs__link">
+        
+  
+    
+  
+  Spanish economy
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../examples/sweden/" class="md-tabs__link">
+        
+  
+    
+  
+  Swedish economy
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  API documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="OptimizePlan" class="md-nav__button md-logo" aria-label="OptimizePlan" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OptimizePlan
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pablovegan/Economic-Planning" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pablovegan/Economic-Planning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/spain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spanish economy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/sweden/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swedish economy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            API documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    cybersyn
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            cybersyn
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_exceptions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    _exceptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_version/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    _version
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ecology/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ecology
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../economy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    economy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    optimize
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    optimize
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cybersyn.optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      optimize
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="optimize">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.ErrorPeriods" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorPeriods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.ErrorRevisePeriods" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorRevisePeriods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.InfeasibleProblem" class="md-nav__link">
+    <span class="md-ellipsis">
+      InfeasibleProblem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      OptimizePlan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OptimizePlan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.__call__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __call__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      cost
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.export_constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      export_constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.labor_realloc_constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      labor_realloc_constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.optimize_period" class="md-nav__link">
+    <span class="md-ellipsis">
+      optimize_period
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.pollutants_constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      pollutants_constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.production_constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      production_constraints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cybersyn.optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      optimize
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="optimize">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.ErrorPeriods" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorPeriods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.ErrorRevisePeriods" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErrorRevisePeriods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.InfeasibleProblem" class="md-nav__link">
+    <span class="md-ellipsis">
+      InfeasibleProblem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      OptimizePlan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OptimizePlan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.__call__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __call__
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      cost
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.export_constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      export_constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.labor_realloc_constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      labor_realloc_constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.optimize_period" class="md-nav__link">
+    <span class="md-ellipsis">
+      optimize_period
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.pollutants_constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      pollutants_constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cybersyn.optimize.OptimizePlan.production_constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      production_constraints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>optimize</h1>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="cybersyn.optimize" class="doc doc-heading">
+            <code>cybersyn.optimize</code>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Optimize an Economy dataclass using linear programming.</p>
+
+
+<details class="todo" open>
+  <summary>TODO</summary>
+  <p>Input targets as an object in optimizer?
+    - Target domestic
+    - Target export
+Add more ecological constraints</p>
+</details>
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="cybersyn.optimize.ErrorPeriods" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ErrorPeriods</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code></p>
+
+
+        <p>Error in the number of revise periods given.</p>
+
+
+
+
+
+
+                  <details class="quote">
+                    <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;The number of periods provided in the economy must be greater&quot;</span>
+        <span class="s2">&quot;or equal to the number of periods we need to optimize our plan.&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="cybersyn.optimize.ErrorRevisePeriods" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">ErrorRevisePeriods</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code></p>
+
+
+        <p>Error in the number of periods given.</p>
+
+
+
+
+
+
+                  <details class="quote">
+                    <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;Number of revise periods must be less or equal the number of horizon periods.&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="cybersyn.optimize.InfeasibleProblem" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">InfeasibleProblem</span><span class="p">(</span><span class="n">iter_</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code></p>
+
+
+        <p>Exception raised for infeasible LP problems in the input salary.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>iter_</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Current iteration of the linear programming algorithm.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+                  <details class="quote">
+                    <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iter_</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;LP problem in iteration period </span><span class="si">{</span><span class="n">iter_</span><span class="si">}</span><span class="s2"> couldn&#39;t&quot;</span>
+        <span class="s2">&quot; be solved. You may try increasing the horizon periods&quot;</span>
+        <span class="s2">&quot; or the initial surplus production.&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="cybersyn.optimize.OptimizePlan" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">OptimizePlan</span><span class="p">(</span><span class="n">periods</span><span class="p">,</span> <span class="n">horizon_periods</span><span class="p">,</span> <span class="n">revise_periods</span><span class="p">,</span> <span class="n">economy</span><span class="p">,</span> <span class="n">ecology</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Given the data for an economy, create the desired constraints and calculate
+the desired production for the upcoming years using linear programming and
+receding horizon control.</p>
+<p>To plan an economy, we need to solve the following linear programming problem</p>
+<p>
+<script type="math/tex; mode=display">    \text{minimize}\: \sum_{t=0}^T c_t \cdot x_t  </script>
+</p>
+<p>subject to different constraints:</p>
+<ol>
+<li>
+<p>The activity of the production units must be positive at each period,
+    <script type="math/tex; mode=display">x_t \geq 0 \:.</script>
+</p>
+</li>
+<li>
+<p>More is produced than it is consumed,
+    <script type="math/tex; mode=display">e_{t-1} + S_t \cdot x_t - U^\text{dom}_t \cdot x_t +
+    f^\text{imp}_t \geq f^\text{exp}_t + f^\text{dom}_t \:,</script>
+</p>
+</li>
+<li>
+<p>Trade balance is positive after a certain number of periods,
+    <script type="math/tex; mode=display">\sum_{t=1}^T\: (U^\text{imp}_t \cdot x_t + f^\text{imp}_t) \cdot p^\text{imp}
+    \: \leq \: \sum_{t=1}^T \: f^\text{exp}_t \cdot p^\text{exp} \:. </script>
+</p>
+</li>
+</ol>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>periods</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of periods to actually plan (discarding the horizon).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>horizon_periods</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of periods to plan in each iteration.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>revise_periods</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of periods after which to revise a plan.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>economy</code>
+            </td>
+            <td>
+                  <code>EconomicPlan</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The economy, which contains supply-use tables, import prices...</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.periods">periods</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of periods to actually plan (discarding the horizon).
+For example, we may want to plan the production for the next 4 years.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.horizon_periods">horizon_periods</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of periods to plan in each iteration.
+For example, we may want to use a horizon of 6 years.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.revise_periods">revise_periods</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The number of periods after which to revise a plan.
+For example, if we planned a horizon of 6 years and we choose to revise
+the plan after 2 years, we discard the resting 4 years and plan again.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.economy">economy</span></code></td>
+            <td>
+                  <code>EconomicPlan</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The economy, which contains supply-use tables, import prices...</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.worked_hours">worked_hours</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="numpy.typing.NDArray">NDArray</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total worked hours in each period.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.planned_activity">planned_activity</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="numpy.typing.NDArray">NDArray</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The planned activity for the production units
+in each period.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.planned_production">planned_production</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="numpy.typing.NDArray">NDArray</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The planned production for each product in each period.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.planned_surplus">planned_surplus</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="numpy.typing.NDArray">NDArray</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The surplus production at the end of each period.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.export_deficit">export_deficit</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="numpy.typing.NDArray">NDArray</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The export deficit at the end of each period.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.activity">activity</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="cvxpy.Variable">Variable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The activity variables of our LP problem, which correspond to the
+level of activation of each production unit.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="cybersyn.optimize.OptimizePlan.total_import">total_import</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="cvxpy.Variable">Variable</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The final imported products (variables) of our LP problem,
+which correspond to the level of activation of each production unit.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+                  <details class="quote">
+                    <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">periods</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">horizon_periods</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">revise_periods</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">economy</span><span class="p">:</span> <span class="n">Economy</span><span class="p">,</span>
+    <span class="n">ecology</span><span class="p">:</span> <span class="n">Ecology</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">periods</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">horizon_periods</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">revise_periods</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">revise_periods</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">economy</span> <span class="o">=</span> <span class="n">economy</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ecology</span> <span class="o">=</span> <span class="n">ecology</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_validate_plan</span><span class="p">(</span><span class="n">economy</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">planned_economy</span> <span class="o">=</span> <span class="n">PlannedEconomy</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">planned_ecology</span> <span class="o">=</span> <span class="n">PlannedEcology</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="cybersyn.optimize.OptimizePlan.__call__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__call__</span><span class="p">(</span><span class="n">target_economy</span><span class="p">,</span> <span class="n">target_ecology</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init_surplus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init_export_deficit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Optimize the plan over the specified periods and horizon.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>init_surplus</code>
+            </td>
+            <td>
+                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The surplus production at the initial
+time period. Defaults to None.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>init_export_deficit</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The export deficit at the initial
+time period. Defaults to None.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">target_economy</span><span class="p">:</span> <span class="n">TargetEconomy</span><span class="p">,</span>
+    <span class="n">target_ecology</span><span class="p">:</span> <span class="n">TargetEcology</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">init_surplus</span><span class="p">:</span> <span class="n">NDArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">init_export_deficit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlannedEconomy</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize the plan over the specified periods and horizon.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        init_surplus (NDArray, optional): The surplus production at the initial</span>
+<span class="sd">            time period. Defaults to None.</span>
+<span class="sd">        init_export_deficit (float, optional): The export deficit at the initial</span>
+<span class="sd">            time period. Defaults to None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">production</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">surplus</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_deficit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">worked_hours</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">produced_pollutants</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">activity</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># Industrial activity is set as nonnegative</span>
+        <span class="n">Variable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">sectors</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;activity_</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periods</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">total_import</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># Imports are set as nonnegative</span>
+        <span class="n">Variable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">products</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;total_import_</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">nonneg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periods</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">init_surplus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">products</span><span class="p">)</span> <span class="k">if</span> <span class="n">init_surplus</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">init_surplus</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimize_period</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">,</span> <span class="n">target_ecology</span><span class="p">,</span> <span class="n">init_surplus</span><span class="p">,</span> <span class="n">init_export_deficit</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">period</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">revise_periods</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">periods</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">revise_periods</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimize_period</span><span class="p">(</span>
+            <span class="n">period</span><span class="p">,</span>
+            <span class="n">target_economy</span><span class="p">,</span>
+            <span class="n">target_ecology</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">planned_economy</span><span class="o">.</span><span class="n">surplus</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">planned_economy</span><span class="o">.</span><span class="n">export_deficit</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">planned_economy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">planned_ecology</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="cybersyn.optimize.OptimizePlan.cost" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">cost</span><span class="p">(</span><span class="n">period</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create the cost function to optimize and save the total worked hours in each period.
+<script type="math/tex; mode=display">    \text{minimize}\: \sum_{t=0}^T c_t \cdot x_t  </script>
+Args:
+    period (int): current period of the optimization.
+Returns:
+    Variable: Cost function to optimize.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Variable</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create the cost function to optimize and save the total worked hours in each period.</span>
+<span class="sd">    $$    \text{minimize}\: \sum_{t=0}^T c_t \cdot x_t  $$</span>
+<span class="sd">    Args:</span>
+<span class="sd">        period (int): current period of the optimization.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Variable: Cost function to optimize.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span><span class="p">):</span>
+        <span class="n">worked_hours</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">worked_hours</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">import_prices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">prices_import</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_import</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="c1"># TODO: revise cost function. The more we penalize imports, the more hours we work</span>
+        <span class="n">cost</span> <span class="o">+=</span> <span class="n">worked_hours</span> <span class="o">+</span> <span class="n">import_prices</span>
+
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">revise_periods</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Record the worked hours in each period</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">worked_hours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">worked_hours</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cost</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="cybersyn.optimize.OptimizePlan.export_constraints" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">export_constraints</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">,</span> <span class="n">export_deficit</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>We must export more than we import at the end of the horizon.</p>
+<p>
+<script type="math/tex; mode=display"> \: \sum_{t=1}^T \: f^\text{exp}_t \cdot p^\text{exp} \: \geq
+\: \sum_{t=1}^T\: (U^\text{imp}_t \cdot x_t + f^\text{imp}_t) \cdot p^\text{imp}\:. </script>
+</p>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>If we don't force a positive deficit at the end of the revise period, we will have
+an ever increasing export deficit.</p>
+</details>
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>current period of the optimization.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>export_deficit</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The export deficit at the end of each period.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>list</code></td>            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="cvxpy.Constraint">Constraint</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Export constraints.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">export_constraints</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">:</span> <span class="n">TargetEconomy</span><span class="p">,</span> <span class="n">export_deficit</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;We must export more than we import at the end of the horizon.</span>
+
+<span class="sd">    $$ \: \sum_{t=1}^T \: f^\text{exp}_t \cdot p^\text{exp} \: \geq</span>
+<span class="sd">    \: \sum_{t=1}^T\: (U^\text{imp}_t \cdot x_t + f^\text{imp}_t) \cdot p^\text{imp}\:. $$</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        If we don&#39;t force a positive deficit at the end of the revise period, we will have</span>
+<span class="sd">        an ever increasing export deficit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        period (int): current period of the optimization.</span>
+<span class="sd">        export_deficit (float): The export deficit at the end of each period.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: Export constraints.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span><span class="p">):</span>
+        <span class="n">total_price_export</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">prices_export</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">@</span> <span class="n">target_economy</span><span class="o">.</span><span class="n">exports</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">total_price_import</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">prices_import</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_import</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="c1"># economy.use_import[t] @ self.activity[t] + self.target_import[t]</span>
+        <span class="n">export_deficit</span> <span class="o">=</span> <span class="n">export_deficit</span> <span class="o">+</span> <span class="n">total_price_export</span> <span class="o">-</span> <span class="n">total_price_import</span>
+        <span class="c1"># Save the trade deficit in the revised periods</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">revise_periods</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">periods</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_deficit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">export_deficit</span><span class="p">)</span>
+
+    <span class="c1"># constraints.append(export_deficit &lt;= 1e6)  # Limit export deficit</span>
+    <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">export_deficit</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">constraints</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="cybersyn.optimize.OptimizePlan.labor_realloc_constraint" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">labor_realloc_constraint</span><span class="p">(</span><span class="n">period</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>This constraint limits the reallocation of labor from one period to the
+next. For example, one cannot turn all farmers into train manufacturers in one year.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>current period of the optimization.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>list</code></td>            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="cvxpy.Constraint">Constraint</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Labor reallocation constraints.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">labor_realloc_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;This constraint limits the reallocation of labor from one period to the</span>
+<span class="sd">    next. For example, one cannot turn all farmers into train manufacturers in one year.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        period (int): current period of the optimization.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: Labor reallocation constraints.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">realloc_coef</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">realloc_low_limit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="o">-</span> <span class="n">realloc_coef</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">sectors</span><span class="p">)</span>
+    <span class="n">realloc_upper_limit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="o">+</span> <span class="n">realloc_coef</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">sectors</span><span class="p">)</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># No restrictions in the first period</span>
+            <span class="k">continue</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activity</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">realloc_low_limit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activity</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">realloc_upper_limit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">constraints</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="cybersyn.optimize.OptimizePlan.optimize_period" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">optimize_period</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">,</span> <span class="n">target_ecology</span><span class="p">,</span> <span class="n">surplus</span><span class="p">,</span> <span class="n">export_deficit</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Optimize one period of the plan.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>current period of the optimization.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>surplus</code>
+            </td>
+            <td>
+                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The surplus production at the end of each period.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>export_deficit</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The export deficit at the end of each period.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="cybersyn.optimize.InfeasibleProblem" href="#cybersyn.optimize.InfeasibleProblem">InfeasibleProblem</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Exception raised for infeasible LP problems in the input salary.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">optimize_period</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">target_economy</span><span class="p">:</span> <span class="n">TargetEconomy</span><span class="p">,</span>
+    <span class="n">target_ecology</span><span class="p">:</span> <span class="n">TargetEcology</span><span class="p">,</span>
+    <span class="n">surplus</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
+    <span class="n">export_deficit</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize one period of the plan.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        period (int): current period of the optimization.</span>
+<span class="sd">        surplus (NDArray): The surplus production at the end of each period.</span>
+<span class="sd">        export_deficit (float): The export deficit at the end of each period.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        InfeasibleProblem: Exception raised for infeasible LP problems in the input salary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">production_constraints</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">,</span> <span class="n">surplus</span><span class="p">)</span>
+    <span class="n">constraints</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_constraints</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">,</span> <span class="n">export_deficit</span><span class="p">)</span>
+    <span class="n">constraints</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labor_realloc_constraint</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ecology</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constraints</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pollutants_constraint</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">target_ecology</span><span class="p">)</span>
+    <span class="n">objective</span> <span class="o">=</span> <span class="n">Minimize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="n">period</span><span class="p">))</span>
+    <span class="n">problem</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">problem</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;infeasible&quot;</span><span class="p">,</span> <span class="s2">&quot;unbounded&quot;</span><span class="p">]:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Problem value is </span><span class="si">{</span><span class="n">problem</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">InfeasibleProblem</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_save_plan_period</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="cybersyn.optimize.OptimizePlan.pollutants_constraint" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">pollutants_constraint</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">target_ecology</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Maximum pollution allowed.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">pollutants_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target_ecology</span><span class="p">:</span> <span class="n">TargetEcology</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Maximum pollution allowed.&quot;&quot;&quot;</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span><span class="p">):</span>
+        <span class="n">produced_pollutants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ecology</span><span class="o">.</span><span class="n">pollutant_sector</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">produced_pollutants</span> <span class="o">&lt;=</span> <span class="n">target_ecology</span><span class="o">.</span><span class="n">pollutants</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+        <span class="c1"># Record the planned production and the surplus production in the revised periods</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">revise_periods</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">periods</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">produced_pollutants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">produced_pollutants</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">constraints</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="cybersyn.optimize.OptimizePlan.production_constraints" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">production_constraints</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">,</span> <span class="n">surplus</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>We must produce more than the target output,
+<script type="math/tex; mode=display">e_{t-1} + S_t \cdot x_t - U^\text{dom}_t \cdot x_t +
+f^\text{imp}_t \geq f^\text{exp}_t + f^\text{dom}_t \:.</script>
+</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>current period of the optimization.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>surplus</code>
+            </td>
+            <td>
+                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the surplus production at the end of each period.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>list</code></td>            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="cvxpy.Constraint">Constraint</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Production meets target constraints.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>cybersyn/optimize.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">production_constraints</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target_economy</span><span class="p">:</span> <span class="n">TargetEconomy</span><span class="p">,</span> <span class="n">surplus</span><span class="p">:</span> <span class="n">NDArray</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Constraint</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;We must produce more than the target output,</span>
+<span class="sd">    $$e_{t-1} + S_t \cdot x_t - U^\text{dom}_t \cdot x_t +</span>
+<span class="sd">    f^\text{imp}_t \geq f^\text{exp}_t + f^\text{dom}_t \:.$$</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        period (int): current period of the optimization.</span>
+<span class="sd">        surplus (NDArray): the surplus production at the end of each period.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: Production meets target constraints.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizon_periods</span><span class="p">):</span>
+        <span class="n">supply_use</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">supply</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">use_domestic</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">use_import</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">production</span> <span class="o">=</span> <span class="n">supply_use</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="n">surplus</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">economy</span><span class="o">.</span><span class="n">depreciation</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">@</span> <span class="n">surplus</span>
+            <span class="o">+</span> <span class="n">production</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_import</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">target_economy</span><span class="o">.</span><span class="n">domestic</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">target_economy</span><span class="o">.</span><span class="n">exports</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">target_economy</span><span class="o">.</span><span class="n">imports</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">surplus</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Record the planned production and the surplus production in the revised periods</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">period</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">revise_periods</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">periods</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">surplus</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">surplus</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">production</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">production</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">constraints</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tracking", "toc.follow", "navigation.top", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,6 @@
+* [cybersyn](index.md)
+    * [\_exceptions](_exceptions.md)
+    * [\_version](_version.md)
+    * [ecology](ecology.md)
+    * [economy](economy.md)
+    * [optimize](optimize.md)
